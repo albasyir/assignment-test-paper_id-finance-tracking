@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Actions\Auth\JWTAction;
+use App\Contracts\AuthContract;
+
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $this->app->singleton(AuthContract::class, function (Application $app) {
+            return new JWTAction();
+        });
     }
 }

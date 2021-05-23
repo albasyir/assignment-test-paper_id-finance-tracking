@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\User\CreateUserAction;
 use App\Contracts\AuthContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -11,8 +10,6 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {

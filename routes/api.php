@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Finance\AccoutController;
-use App\Http\Controllers\Finance\TransactionController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +25,9 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
-});
 
-Route::prefix('/finance')->group(function () {
-    Route::apiResource("/account", AccoutController::class);
-    Route::apiResource("/transaction", TransactionController::class);
+    Route::prefix('/finance')->group(function () {
+        Route::apiResource("/account", AccountController::class);
+        Route::apiResource("/transaction", TransactionController::class);
+    });
 });

@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Finance;
+namespace Database\Factories;
 
-use App\Models\Finance\Accout;
+use App\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AccoutFactory extends Factory
@@ -12,7 +12,7 @@ class AccoutFactory extends Factory
      *
      * @var string
      */
-    protected $model = Accout::class;
+    protected $model = Account::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class AccoutFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => "Bank " + $this->faker->bankAccountNumber,
         ];
     }
 }

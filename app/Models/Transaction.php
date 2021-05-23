@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Finance;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name', 'amount', 'account_id'];
+
+    public function account()
+    {
+        $this->belongsTo(Account::class);
+    }
 }

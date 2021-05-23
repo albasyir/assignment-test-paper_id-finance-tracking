@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories\Finance;
+namespace Database\Factories;
 
-use App\Models\Finance\Transaction;
+use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TransactionFactory extends Factory

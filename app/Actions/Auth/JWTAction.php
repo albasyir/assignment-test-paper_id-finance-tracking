@@ -5,9 +5,8 @@ namespace App\Actions\Auth;
 use App\Contracts\AuthContract;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Validation\UnauthorizedException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JWTAction implements AuthContract
 {
@@ -41,7 +40,6 @@ class JWTAction implements AuthContract
 
         return true;
     }
-
 
 
     public function user(): Authenticatable | null

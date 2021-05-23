@@ -34,6 +34,18 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
+
+    public function transactions()
+    {
+        return $this->hasManyThrough(Transaction::class, Account::class);
+    }
+
     /**
      * The attributes that should be cast to native types.
      *

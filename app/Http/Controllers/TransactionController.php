@@ -8,23 +8,15 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-
-    private Authenticatable $user;
-
-    public function __construct(AuthContract $auth)
-    {
-        $this->user = $auth->user();
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, AuthContract $auth)
     {
-        $transactions = $this->user->transactions();
+        $transactions = $auth->user()->transactions();
 
         if ($request->has('name')) {
             $transactions->where('transactions.name', 'like', "%{$request->input('name')}%");
@@ -50,11 +42,11 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, AuthContract $auth)
     {
-        $this->user->accounts()->findOrFail($request->input('account_id'));
+        $auth->user()->accounts()->findOrFail($request->input('account_id'));
 
-        return $this->user->transactions()->create($request->only(['name', 'amount', 'account_id']));
+        return $auth->user()->transactions()->create($request->only(['name', 'amount', 'account_id']));
     }
 
     /**
@@ -63,9 +55,9 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(int $id, AuthContract $auth)
     {
-        return $this->user->transactions()->findOrFail($id);
+        return $auth->user()->transactions()->findOrFail($id);
     }
 
     /**
@@ -75,9 +67,9 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id, AuthContract $auth)
     {
-        return $this->user->transactions()->findOrFail($id)->update($request->only(['name', 'amount']));
+        return $auth->user()->transactions()->findOrFail($id)->update($request->only(['name', 'amount']));
     }
 
     /**
@@ -86,8 +78,8 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id, AuthContract $auth)
     {
-        return $this->user->transactions()->findOrFail($id)->delete();
+        return $auth->user()->transactions()->findOrFail($id)->delete();
     }
 }

@@ -8,22 +8,15 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    private Authenticatable $user;
-
-    public function __construct(AuthContract $auth)
-    {
-        $this->user = $auth->user();
-    }
-
     /**
      * Display a listing of current user session.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, AuthContract $auth)
     {
-        $accounts = $this->user->accounts();
+        $accounts = $auth->user()->accounts();
 
         if ($request->has('name')) {
             $accounts->where('name', 'like', "%{$request->input('name')}%");
@@ -38,9 +31,9 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, AuthContract $auth)
     {
-        return $this->user->accounts()->create($request->only('name'));
+        return $auth->user()->accounts()->create($request->only('name'));
     }
 
     /**
@@ -49,9 +42,9 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(int $id, AuthContract $auth)
     {
-        return $this->user->accounts()->findOrFail($id);
+        return $auth->user()->accounts()->findOrFail($id);
     }
 
     /**
@@ -61,9 +54,9 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id, AuthContract $auth)
     {
-        return $this->user->accounts()->findOrFail($id)->update($request->only('name'));
+        return $auth->user()->accounts()->findOrFail($id)->update($request->only('name'));
     }
 
     /**
@@ -72,8 +65,8 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id, AuthContract $auth)
     {
-        return $this->user->accounts()->findOrFail($id)->delete();
+        return $auth->user()->accounts()->findOrFail($id)->delete();
     }
 }

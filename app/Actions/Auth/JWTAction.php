@@ -7,6 +7,14 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * JWT Auth Action
+ *
+ * NOTE: this use defult guard, if we change default guard,
+ * this package need small change
+ *
+ * @package App\Actions\Auth
+ */
 class JWTAction implements AuthContract
 {
     /**

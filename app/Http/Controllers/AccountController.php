@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\AuthContract;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
+/**
+ * Account Controller
+ *
+ * @package App\Http\Controllers
+ */
 class AccountController extends Controller
 {
     /**

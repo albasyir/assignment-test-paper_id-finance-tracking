@@ -5,38 +5,28 @@ namespace App\Actions\Auth;
 use App\Contracts\AuthContract;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Support\Facades\Auth;
 
 class JWTAction implements AuthContract
 {
-    /**
-     *
-     *
-     * @param array $credentials
-     * @return array
-     * @throws AuthenticationException
-     */
     public function login(array $credentials): array
     {
-        $token = auth()->attempt($credentials);
+        $token = Auth::attempt($credentials);
 
         if (!$token) throw new AuthenticationException();
 
         return [
             'type' => 'bearer',
             'token' => $token,
-            'identity' => auth()->user()
+            'identity' => Auth::user()
         ];
     }
 
-
-
     public function logout(): bool
     {
-        if (!auth()->check()) throw new UnauthorizedException("fail when action check the session");
+        if (!Auth::check()) throw new AuthenticationException("fail when action check the session");
 
-        auth()->logout();
+        Auth::logout();
 
         return true;
     }
@@ -44,6 +34,8 @@ class JWTAction implements AuthContract
 
     public function user(): Authenticatable | null
     {
-        return auth()->user();
+        if (!Auth::check()) throw new AuthenticationException("fail when action check the session");
+
+        return Auth::user();
     }
 }

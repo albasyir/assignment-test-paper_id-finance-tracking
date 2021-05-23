@@ -19,11 +19,29 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->user->transactions()->get();
+        $transactions = $this->user->transactions();
+
+        if ($request->has('name')) {
+            $transactions->where('transactions.name', 'like', "%{$request->input('name')}%");
+        }
+
+        if ($request->has('amount_min') && $request->has('amount_max')) {
+            $transactions->whereBetween('amount', [
+                $request->input('amount_min'),
+                $request->input('amount_max')
+            ]);
+        }
+
+        if ($request->has('account_id')) {
+            $transactions->where('account_id', '=', $request->input('account_id'));
+        }
+
+        return $transactions->paginate(15);
     }
 
     /**
@@ -34,6 +52,8 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->user->accounts()->findOrFail($request->input('account_id'));
+
         return $this->user->transactions()->create($request->only(['name', 'amount', 'account_id']));
     }
 
@@ -45,7 +65,7 @@ class TransactionController extends Controller
      */
     public function show(int $id)
     {
-        return $this->user->transactions()->findOrFail($id)->get();
+        return $this->user->transactions()->findOrFail($id);
     }
 
     /**

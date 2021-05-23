@@ -3,9 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class AccoutFactory extends Factory
+class AccountFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -21,8 +22,12 @@ class AccoutFactory extends Factory
      */
     public function definition()
     {
+        $user = User::query()->inRandomOrder()->first(['id']);
+
         return [
-            'name' => "Bank " + $this->faker->bankAccountNumber,
+            'name' => "Bank " . $this->faker->bankAccountNumber,
+            'user_id' => $user->id,
+            'created_at' => $this->faker->dateTimeBetween()
         ];
     }
 }

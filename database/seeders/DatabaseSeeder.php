@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +19,9 @@ class DatabaseSeeder extends Seeder
             AccountSeeder::class,
             TransactionSeeder::class
         ]);
+
+        $random_user = User::query()->inRandomOrder()->first(['email']);
+
+        $this->command->info('Want test account? you can use : ' . $random_user->email . ' with "testaccount" as password');
     }
 }

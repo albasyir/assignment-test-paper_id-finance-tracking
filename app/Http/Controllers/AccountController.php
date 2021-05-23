@@ -18,11 +18,18 @@ class AccountController extends Controller
     /**
      * Display a listing of current user session.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->user->accounts()->get();
+        $accounts = $this->user->accounts();
+
+        if ($request->has('name')) {
+            $accounts->where('name', 'like', "%{$request->input('name')}%");
+        }
+
+        return $accounts->paginate(15);
     }
 
     /**

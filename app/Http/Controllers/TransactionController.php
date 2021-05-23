@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\AuthContract;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the transactions.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -37,7 +36,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created transaction in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -50,7 +49,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified transaction.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -61,7 +60,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified transaction in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -73,7 +72,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified transaction from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

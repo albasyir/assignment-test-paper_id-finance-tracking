@@ -6,6 +6,6 @@ use App\Contracts\AuthContract;
 
 class OtherAuthAction implements AuthContract
 {
-    // other auth method
+    // example auth method
     // showcase when we want implement new Auth, so easy right ?
 }

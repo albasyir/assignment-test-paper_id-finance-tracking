@@ -3,7 +3,7 @@
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\TransactionReportController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,9 +30,6 @@ Route::middleware(['auth:api'])->group(function () {
         Route::apiResource("/account", AccountController::class);
         Route::apiResource("/transaction", TransactionController::class);
 
-        Route::prefix('/report/transaction')->group(function () {
-            Route::get('/daily', [TransactionReportController::class, 'daily']);
-            Route::get('/monthly', [TransactionReportController::class, 'monthly']);
-        });
+        Route::get('/report/transaction', [ReportController::class, 'transaction']);
     });
 });

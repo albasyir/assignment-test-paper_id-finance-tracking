@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class JWTAction implements AuthContract
 {
+    /**
+     * Login with JWT
+     *
+     * @param array $credentials
+     * @return array
+     * @throws AuthenticationException
+     */
     public function login(array $credentials): array
     {
         $token = Auth::attempt($credentials);
@@ -22,6 +29,12 @@ class JWTAction implements AuthContract
         ];
     }
 
+    /**
+     * Logout with JWT
+     *
+     * @return bool
+     * @throws AuthenticationException
+     */
     public function logout(): bool
     {
         if (!Auth::check()) throw new AuthenticationException("fail when action check the session");
@@ -32,6 +45,12 @@ class JWTAction implements AuthContract
     }
 
 
+    /**
+     * User Session
+     *
+     * @return Authenticatable|null
+     * @throws AuthenticationException
+     */
     public function user(): Authenticatable | null
     {
         if (!Auth::check()) throw new AuthenticationException("fail when action check the session");
